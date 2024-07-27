@@ -1,0 +1,1 @@
+export type TaskPriorityType = 'high' | 'medium' | 'low'
