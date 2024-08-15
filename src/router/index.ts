@@ -7,12 +7,8 @@ const routes: RouteRecordRaw[] = [
         alias: ['/home', '/app']
     },
     {
-        path: '/groups/:id', name: 'task-group', component: () => import('@/views/groups/TaskGroups.view.vue'),
-        children: [{
-            path: 'task',
-            name:'task',
-            component: () => import('@/views/groups/children/Task.view.vue')
-        }]
+        path: '/tasks', name: 'task-group', component: () => import('@/views/task-list.vue'),
+
     }
 
 ]

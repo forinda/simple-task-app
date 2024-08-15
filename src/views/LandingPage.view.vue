@@ -4,10 +4,10 @@
 <template>
 
    <section id="banner-section"
-      class="bg-center bg-cover bg-fixed h-screen overflow-hidden bg-gray-800 bg-blend-overlay grid place-items-center">
+      class="bg-center bg-cover bg-fixed  bg-gray-800 bg-blend-overlay grid place-items-center">
       <div
-         class="min-h-[20rem] p-10 flex flex-col gap-4  min-w-[60vw] bg-opacity-10 text-white text-center justify-center items-center">
-         <h1 class="text-6xl font-bold text-center font-ibm-mono">
+         class=" p-10 flex flex-col gap-4  min-w-[60vw] bg-opacity-10 text-white text-center justify-center items-center">
+         <h1 class="text-xl font-bold text-center font-ibm-mono">
             Manage your tasks with ease
          </h1>
          <p class="text-xl">
