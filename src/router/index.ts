@@ -3,11 +3,11 @@ import { createWebHistory, RouteRecordRaw, createRouter } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
     {
-        path: '/', name: 'landing-page', component: () => import('@/views/LandingPage.view.vue'),
+        path: '/', name: 'dashboard', component: () => import('@/views/dashboard.vue'),
         alias: ['/home', '/app']
     },
     {
-        path: '/tasks', name: 'task-group', component: () => import('@/views/task-list.vue'),
+        path: '/tasks', name: 'tasks', component: () => import('@/views/task-list.vue'),
 
     }
 

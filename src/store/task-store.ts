@@ -1,4 +1,4 @@
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {TaskInterface} from "@/models/tasks";
 import {storage} from "@/store/store-api.ts";
 
@@ -10,7 +10,6 @@ type TaskStoreType = {
 }
 
 const deserializedState = storage.deserialize<TaskStoreType>(taskKey, {data: [], is_loading: false});
-console.log({deserializedState})
 const defaultState: TaskStoreType = deserializedState
     ? {
         ...deserializedState,
@@ -20,6 +19,37 @@ const defaultState: TaskStoreType = deserializedState
 
 // Create a reactive state object with default state
 const taskStore = ref<TaskStoreType>(defaultState);
+
+const groupBasedTaskStats  = computed(()=>{
+    return taskStore.value.data.reduce<{[k:string]:number}>((accumulator, {group})=>{
+        if(!(group in accumulator)){
+            accumulator[group] = 1
+        }else{
+            accumulator[group] += 1
+        }
+        return accumulator
+    },{})
+})
+const priorityBasedTaskStats  = computed(()=>{
+    return taskStore.value.data.reduce<{[k:string]:number}>((accumulator, {priority},)=>{
+        if(!(priority in accumulator)){
+            accumulator[priority] = 1
+        }else{
+            accumulator[priority] += 1
+        }
+        return accumulator
+    },{})
+})
+const statusBasedTaskStats  = computed(()=>{
+    return taskStore.value.data.reduce<{[k:string]:number}>((accumulator, {status},)=>{
+        if(!(status in accumulator)){
+            accumulator[status] = 1
+        }else{
+            accumulator[status] += 1
+        }
+        return accumulator
+    },{})
+})
 const actions = {
     async sync() {
         // const {is_loading: _, ...rest} =
@@ -56,6 +86,13 @@ const getters = {
     },
     get loading() {
         return taskStore.value.is_loading
+    },
+    get stats(){
+        return {
+            priority:priorityBasedTaskStats.value,
+            groups:groupBasedTaskStats.value,
+            status:statusBasedTaskStats.value,
+        }
     }
 }
 
