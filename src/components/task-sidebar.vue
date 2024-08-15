@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import {reactive, ref} from "vue";
-import {TaskgroupInterface} from "@/models/task-groups";
+import {TaskGroupInterface} from "@/models/task-groups";
 import TaskForm from "@/components/task-form.vue";
 
-let groups = reactive<TaskgroupInterface[]>([{name: 'Home tasks', isActive: false}, {
+let groups = reactive<TaskGroupInterface[]>([{name: 'Home tasks', isActive: false}, {
   name: "Work tasks",
   isActive: false
 }, {name: "School tasks", isActive: false}])
 const activeGroup = ref<string>('')
-const setActiveGroup = (group: TaskgroupInterface) => {
+const setActiveGroup = (group: TaskGroupInterface) => {
   activeGroup.value = group.name
   groups = groups.map((g) => ({...g, isActive: g.name === group.name}))
 }

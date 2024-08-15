@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { TaskgroupInterface } from '@/models/task-groups';
+import { TaskGroupInterface } from '@/models/task-groups';
 import TaskGroupComponent from '@/components/groups/TaskGroup.component.vue';
 import { reactive, ref } from 'vue';
-let groups = reactive<TaskgroupInterface[]>([{ name: 'Home tasks', isActive: false }, { name: "Work tasks", isActive: false }, { name: "School tasks", isActive: false }])
+let groups = reactive<TaskGroupInterface[]>([{ name: 'Home tasks', is_active: false }, { name: "Work tasks", is_active: false }, { name: "School tasks", is_active: false }])
 const activeGroup = ref<string>('')
-const setActiveGroup = (group: TaskgroupInterface) => {
+const setActiveGroup = (group: TaskGroupInterface) => {
     activeGroup.value = group.name
-    groups = groups.map((g) => ({ ...g, isActive: g.name === group.name ? true : false }))
+    groups = groups.map((g) => ({ ...g, isActive: g.name === group.name }))
 }
 </script>
 

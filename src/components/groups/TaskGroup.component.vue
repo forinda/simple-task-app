@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { TaskgroupInterface } from '@/models/task-groups';
+import { TaskGroupInterface } from '@/models/task-groups';
 defineProps < {
-    tasks_groups: TaskgroupInterface[]
+    tasks_groups: TaskGroupInterface[]
     activeGroup: string
 } > ()
 
 const emit = defineEmits < {
-    (e: 'activate:group', group: TaskgroupInterface): void
+    (e: 'activate:group', group: TaskGroupInterface): void
 } > ()
 
-const setGroup = (group: TaskgroupInterface) => {
+const setGroup = (group: TaskGroupInterface) => {
     emit('activate:group', group)
 }
 </script>

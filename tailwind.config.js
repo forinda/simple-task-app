@@ -6,7 +6,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'ibm-mono': ["IBM Plex Mono", 'monospace']
+        'ibm-mono': ["IBM Plex Mono", 'monospace'],
+        'lato': ["Lato", 'sans-serif']
       }
     },
   },

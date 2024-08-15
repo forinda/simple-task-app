@@ -1,4 +1,4 @@
-export interface TaskgroupInterface {
+export interface TaskGroupInterface {
     name: string
-    isActive: boolean
+    is_active:boolean
 }

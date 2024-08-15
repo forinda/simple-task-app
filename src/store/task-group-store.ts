@@ -1,29 +1,31 @@
 import {reactive} from "vue";
-import {TaskgroupInterface} from "@/models/task-groups";
+import {TaskGroupInterface} from "@/models/task-groups";
 
 type TaskGroupStoreType = {
-    data: TaskgroupInterface[]
+    data: TaskGroupInterface[]
     active_group: null | string
 }
 
 const defaultState: TaskGroupStoreType = {
-    data: [{name: 'Home tasks', isActive: false}, {name: "Work tasks", isActive: false}, {
-        name: "School tasks",
-        isActive: false
+    data: [
+        {name: 'work', is_active: false},
+        {name: "study", is_active: false},
+        {name: "fun", is_active: false},
+        {name: "hobby",is_active: false
     }],
     active_group: null,
 }
 const taskGroupStore = reactive<TaskGroupStoreType>(defaultState)
 
 const actions = {
-    async activateGroup(group: TaskgroupInterface) {
+    async activateGroup(group: TaskGroupInterface) {
         taskGroupStore.active_group = group.name
         taskGroupStore.data = taskGroupStore.data.map((g) => ({...g, isActive: g.name === group.name}))
     }
 }
 
 const getters = {
-    get data(): TaskgroupInterface[] {
+    get data(): TaskGroupInterface[] {
         return taskGroupStore.data
     },
     get active_group(): string | null {

@@ -1,4 +1,4 @@
-import {reactive, ref, toValue} from "vue";
+import {ref} from "vue";
 import {TaskInterface} from "@/models/tasks";
 import {storage} from "@/store/store-api.ts";
 
@@ -22,8 +22,8 @@ const defaultState: TaskStoreType = deserializedState
 const taskStore = ref<TaskStoreType>(defaultState);
 const actions = {
     async sync() {
-        const {is_loading: _, ...rest} = taskStore.value;
-        storage.serialize(taskKey, rest)
+        // const {is_loading: _, ...rest} =
+        storage.serialize(taskKey, {...taskStore.value,is_loading:false})
     },
     async addTask(task: Omit<TaskInterface, 'id' | 'status'>) {
         taskStore.value.is_loading = true
@@ -61,7 +61,7 @@ const getters = {
 
 export function useTaskStore() {
     return {
-        ...getters,
-        ...actions
+        getters,
+        actions
     }
 }
