@@ -1,4 +1,5 @@
 import { TaskPriorityType } from "./Taskpriority.interface";
+import {TaskStatusType} from "@/models/tasks/TaskStatus.model.ts";
 
 export interface TaskInterface {
     priority: TaskPriorityType
@@ -6,7 +7,7 @@ export interface TaskInterface {
     due_date: Date
     description: string
     group: string
-    status:'pending'|'done'
+    status:TaskStatusType
     id:string
 }
 // export type TaskType={}

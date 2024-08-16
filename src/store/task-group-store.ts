@@ -11,7 +11,8 @@ const defaultState: TaskGroupStoreType = {
         {name: 'work', is_active: false},
         {name: "study", is_active: false},
         {name: "fun", is_active: false},
-        {name: "hobby",is_active: false
+        {name: "hobby", is_active: false},
+        {name: "other",is_active: false
     }],
     active_group: null,
 }

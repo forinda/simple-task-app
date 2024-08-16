@@ -6,13 +6,18 @@ const taskKey = 'tasks';
 
 type TaskStoreType = {
     data: TaskInterface[]
+    sort_field:keyof TaskInterface|''
+    sort:{
+        [k:string]:1| -1
+    }
     is_loading: boolean
 }
 
-const deserializedState = storage.deserialize<TaskStoreType>(taskKey, {data: [], is_loading: false});
+const deserializedState = storage.deserialize<TaskStoreType>(taskKey, {data: [], is_loading: false,sort:{},sort_field:''});
 const defaultState: TaskStoreType = deserializedState
     ? {
         ...deserializedState,
+        sort:{},
         is_loading: false,
     }
     : {data: [], is_loading: false};
@@ -50,10 +55,34 @@ const statusBasedTaskStats  = computed(()=>{
         return accumulator
     },{})
 })
+const sortedTasks = computed(()=>taskStore.value.data.toSorted((a:TaskInterface,b:TaskInterface)=>{
+    const field = taskStore.value.sort_field;
+    const sortOrder = taskStore.value.sort[field] || 1; // Default to 1 if the field is not in the sort object
+
+    if (!field) {
+        return 0; // No sorting if the field is not specified
+    }
+
+    if (a[field] < b[field]) return -1 * sortOrder;
+    if (a[field] > b[field]) return 1 * sortOrder;
+    return 0; // Equal values
+}))
 const actions = {
     async sync() {
         // const {is_loading: _, ...rest} =
         storage.serialize(taskKey, {...taskStore.value,is_loading:false})
+    },
+    async sort(key:keyof TaskInterface){
+
+        if(key in taskStore.value.sort){
+            // console.log(`IN- ${taskStore.value.sort[key]}`)
+            taskStore.value.sort[key]=taskStore.value.sort[key]===1?-1:1
+        }else {
+            // console.log(`NOT IN- ${taskStore.value.sort[key]}`)
+            taskStore.value.sort[key]=-1
+        }
+        taskStore.value.sort_field=key
+        await  this.sync()
     },
     async addTask(task: Omit<TaskInterface, 'id' | 'status'>) {
         taskStore.value.is_loading = true
@@ -63,7 +92,7 @@ const actions = {
             id: generateId(),
             status: 'pending'
         }
-        console.log({taskStore})
+        // console.log({taskStore})
         taskStore.value.data = [...taskStore.value.data, newTask]
         await this.sync()
         taskStore.value.is_loading = false
@@ -81,7 +110,8 @@ const actions = {
 
 const getters = {
     get data(): TaskInterface[] {
-        return taskStore.value.data
+        // return taskStore.value.data
+        return  sortedTasks.value
 
     },
     get loading() {
@@ -93,6 +123,9 @@ const getters = {
             groups:groupBasedTaskStats.value,
             status:statusBasedTaskStats.value,
         }
+    },
+    get sort(){
+        return taskStore.value.sort
     }
 }
 

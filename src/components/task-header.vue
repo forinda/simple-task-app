@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <nav class="flex justify-between">
+  <nav class="flex justify-between bg-white p-1 px-4 rounded">
     <div>
       <img src="/favicon-32x32.png" alt="Logo"
       class="border rounded-full border-double"

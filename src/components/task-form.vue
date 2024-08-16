@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {TaskInterface, TaskPriorityType} from "@/models/tasks";
-import {onMounted, ref} from "vue";
+import { ref} from "vue";
 import {useTaskGroups} from "@/store/task-group-store.ts";
 import moment from "moment";
 import {useTaskStore} from "@/store/task-store.ts";
@@ -51,9 +51,9 @@ const submitTask = async () => {
   $v.value.$reset()
 }
 
-onMounted(() => {
-
-})
+// onMounted(() => {
+//
+// })
 
 
 </script>
